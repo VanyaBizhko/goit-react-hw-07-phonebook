@@ -1,19 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact } from 'redux/contactSlice';
-import { getContacts, getFilter } from 'redux/selectors';
 
-
+import { useSelector } from 'react-redux';
 import styles from './ContactList.module.css'
+import {  getFilter } from 'redux/selectors';
 
-export default function ContactList() {
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter);
-  const dispatch = useDispatch();
-
-  const handleDelete = (id) => {
-    dispatch(deleteContact(id));
-  };
-
+export default function ContactList({ contacts, onDelete, deleting }) {
+   const filter = useSelector(getFilter);
   const getFilteredContacts = () => {
     const normalizedFilter = filter.toLowerCase();
 
@@ -21,25 +12,22 @@ export default function ContactList() {
       contact.name.toLowerCase().includes(normalizedFilter)
     );
   };
-
-  const filteredContacts = getFilteredContacts();
-
-
+   const filteredContacts = getFilteredContacts();
     return (
         <div>
             <ul>
         {filteredContacts.map((contact) => (
-          <li className={styles.item} key={contact.id}>
-            {contact.name}: <br />
-            {contact.number}
-            <button
-              className={styles.button}
-              onClick={() => handleDelete(contact.id)}
-            >
-              Delete
-            </button>
-          </li>
-        ))}
+    <li className={styles.item} key={contact.id}>
+     <p>{contact.name}: </p> 
+      <p>{contact.number}</p>
+            
+      <button
+        className={styles.button}
+        onClick={() => onDelete(contact.id)}
+      >{deleting ? 'Deleting...': 'Delete'}
+      </button>
+    </li>
+  ))}
       </ul>
         </div>
     );

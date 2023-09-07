@@ -3,6 +3,7 @@
 import ContactForm from './ContactForm/ContactForm'
 import Filter from './Filter/Filter'
 import ContactList from './ContactList/ContactList'
+import { useFetchContactQuery, useDeleteContactMutation  } from 'redux/contactsApi';
 
 
 
@@ -10,6 +11,8 @@ import ContactList from './ContactList/ContactList'
 
 
 export default function App() {
+  const { data } = useFetchContactQuery();
+  const[deleteContact, { isDeliting}] = useDeleteContactMutation()
     return (
       <div>
         <h1>Phonebook</h1>
@@ -18,7 +21,7 @@ export default function App() {
 
         <h2>Contacts</h2>
         <Filter /> 
-         <ContactList /> 
+         {data && <ContactList contacts={data} onDelete={deleteContact } deleting={isDeliting} /> }
       </div>
     )
 };
