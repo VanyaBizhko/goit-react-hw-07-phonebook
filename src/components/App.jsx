@@ -12,7 +12,7 @@ import { useFetchContactQuery, useDeleteContactMutation  } from 'redux/contactsA
 
 export default function App() {
   const { data } = useFetchContactQuery();
-  const[deleteContact, { isDeliting}] = useDeleteContactMutation()
+  const[deleteContact, { isLoading}] = useDeleteContactMutation()
     return (
       <div>
         <h1>Phonebook</h1>
@@ -21,7 +21,7 @@ export default function App() {
 
         <h2>Contacts</h2>
         <Filter /> 
-         {data && <ContactList contacts={data} onDelete={deleteContact } deleting={isDeliting} /> }
+         {data && <ContactList contacts={data} onDelete={deleteContact } deleting={isLoading} /> }
       </div>
     )
 };

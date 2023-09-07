@@ -22,9 +22,11 @@ export default function ContactList({ contacts, onDelete, deleting }) {
       <p>{contact.number}</p>
             
       <button
-        className={styles.button}
+              className={styles.button}
+              
         onClick={() => onDelete(contact.id)}
       >{deleting ? 'Deleting...': 'Delete'}
+       
       </button>
     </li>
   ))}

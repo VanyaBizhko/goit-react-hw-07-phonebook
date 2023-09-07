@@ -7,7 +7,7 @@ import styles from './ContactForm.module.css'
 
 export default function ContactForm() {
 
-  const [addContact] = useAddContactMutation();
+  const [addContact, {isLoading}] = useAddContactMutation();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -18,11 +18,6 @@ export default function ContactForm() {
     addContact({ name,  number });
     
    console.log(addContact);
-  
-   
-    // console.log(name, number);
-    
-
   };
 
     return (
@@ -47,8 +42,8 @@ export default function ContactForm() {
            required
          />
       
-         <button className={styles.button} type="submit">
-           Add Contact
+         <button className={styles.button} type="submit" disabled={isLoading}>
+          {isLoading ? 'Loading...': 'Add Contact'}
          </button>
        </form>
      </div>

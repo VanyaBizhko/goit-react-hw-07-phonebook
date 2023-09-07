@@ -17,7 +17,9 @@ export const store = configureStore({
   reducer: {
     
     filter: filterReducer,
-    [contactsApi.reducerPath]:contactsApi.reducer
+    [contactsApi.reducerPath]: contactsApi.reducer,
+    isLoading: false,
+    error: null
   },
   middleware: getDefaultMiddleware =>[
     ...getDefaultMiddleware(),
