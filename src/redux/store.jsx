@@ -1,13 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-// import {
-//   persistStore,
-//   FLUSH,
-//   REHYDRATE,
-//   PAUSE,
-//   PERSIST,
-//   PURGE,
-//   REGISTER,
-// } from 'redux-persist';
+
 
 import { contactsApi } from './contactsApi';
 import { filterReducer } from './filterSlice';
@@ -28,4 +20,3 @@ export const store = configureStore({
 });
 setupListeners(store.dispatch)
 
-// export const persistor = persistStore(store);

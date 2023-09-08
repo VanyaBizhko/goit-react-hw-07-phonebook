@@ -2,14 +2,17 @@
 import { useSelector } from 'react-redux';
 import styles from './ContactList.module.css'
 import {  getFilter } from 'redux/selectors';
+import { useDeleteContactMutation, useFetchContactQuery } from 'redux/contactsApi';
 
-export default function ContactList({ contacts, onDelete, deleting }) {
+export default function ContactList() {
+  const { data } = useFetchContactQuery();
+  const[deleteContact, { isLoading}] = useDeleteContactMutation()
    const filter = useSelector(getFilter);
   const getFilteredContacts = () => {
     const normalizedFilter = filter.toLowerCase();
 
-    return contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(normalizedFilter)
+    return data.filter((data) =>
+      data.name.toLowerCase().includes(normalizedFilter)
     );
   };
    const filteredContacts = getFilteredContacts();
@@ -18,14 +21,11 @@ export default function ContactList({ contacts, onDelete, deleting }) {
             <ul>
         {filteredContacts.map((contact) => (
     <li className={styles.item} key={contact.id}>
-     <p>{contact.name}: </p> 
-      <p>{contact.number}</p>
-            
-      <button
-              className={styles.button}
-              
-        onClick={() => onDelete(contact.id)}
-      >{deleting ? 'Deleting...': 'Delete'}
+            <p>{contact.name}: </p>
+            <p>{contact.number}</p> <button
+     className={styles.button} 
+        onClick={() => deleteContact(contact.id)}
+      >{isLoading ? 'Deleting...': 'Delete'}
        
       </button>
     </li>
